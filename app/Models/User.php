@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasMany; 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use App\Models\Loan; 
 
 class User extends Authenticatable
 {
@@ -47,8 +48,20 @@ class User extends Authenticatable
      *
      * @return HasMany
      */
-    public function debitCards()
+    public function debitCards(): HasMany // Add return type hint for clarity
     {
         return $this->hasMany(DebitCard::class, 'user_id');
     }
+
+    // Add this relationship 
+    /**
+     * An User has many Loans.
+     *
+     * @return HasMany
+     */
+    public function loans(): HasMany
+    {
+        return $this->hasMany(Loan::class, 'user_id');
+    }
+    
 }

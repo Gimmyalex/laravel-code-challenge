@@ -15,9 +15,14 @@ class CreateScheduledRepaymentsTable extends Migration
     {
         Schema::create('scheduled_repayments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('loan_id');
+            $table->unsignedBigInteger('loan_id'); // Use unsignedBigInteger for FK if loans.id is bigIncrements
 
-            // TODO: Add missing columns here
+            // Added columns based on test assertions
+            $table->integer('amount');
+            $table->integer('outstanding_amount'); // Amount remaining to be paid for this specific repayment
+            $table->string('currency_code');
+            $table->date('due_date');
+            $table->string('status')->default(\App\Models\ScheduledRepayment::STATUS_DUE); // 'due', 'partial', 'repaid'
 
             $table->timestamps();
             $table->softDeletes();

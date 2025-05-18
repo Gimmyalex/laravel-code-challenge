@@ -15,9 +15,12 @@ class CreateReceivedRepaymentsTable extends Migration
     {
         Schema::create('received_repayments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('loan_id');
+            $table->unsignedBigInteger('loan_id'); // Use unsignedBigInteger for FK
 
-            // TODO: Add missing columns here
+            // Added columns based on test assertions
+            $table->integer('amount');
+            $table->string('currency_code');
+            $table->date('received_at'); 
 
             $table->timestamps();
             $table->softDeletes();
